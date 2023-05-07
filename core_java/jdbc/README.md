@@ -17,31 +17,35 @@ How you test your app against the database? (e.g. database setup, test data set 
 
 ## File Structure
 ```
-My-JDBC-App-Repo
-├── jdbc
-│   ├── src
-│   │   ├── main
-│   │   │   ├── java
-│   │   │   │   ├── com
-│   │   │   │   │   └── myapp
-│   │   │   │   │       ├── dao
-│   │   │   │   │       │   └── UserDao.java
-│   │   │   │   │       ├── model
-│   │   │   │   │       │   └── User.java
-│   │   │   │   │       └── repository
-│   │   │   │   │           └── UserRepository.java
-│   │   │   ├── resources
-│   │   │   │   ├── db.sql
-│   │   │   │   └── application.properties
-│   │   └── test
-│   │       └── java
-│   │           └── com
-│   │               └── myapp
-│   │                   ├── dao
-│   │                   │   └── UserDaoTest.java
-│   │                   └── repository
-│   │                       └── UserRepositoryTest.java
-│   └── README.md
+jdbc
+├── sql-scripts
+│   ├── customer.sql
+│   ├── database.sql
+│   ├── orders.sql
+│   ├── product.sql
+│   ├── psql_docker.sh
+│   ├── README.md
+│   ├── salesperson.sql
+│   └── stored_proc.sql
+├── src
+│   ├── main
+│   │   └── java
+│   │       └── ca.jrvs.apps.jdbc
+│   │           ├── util
+│   │           │   ├── DataAccessObject.java
+│   │           │   └── DataAccessObject.java
+│   │           ├── Customer.java
+│   │           ├── CustomerDAO.java
+│   │           ├── DatabaseConnectionManager.java
+│   │           ├── JDBCExecutor.java
+│   │           ├── Order.java
+│   │           ├── OrderDAO.java
+│   │           └── OrderLine.java
+│   └── test
+│       └── java
+│           └── ca.jrvs.apps.jdbc
+│               └── AppTest.java
+├── pom.xml
 └── README.md
 ```
 
