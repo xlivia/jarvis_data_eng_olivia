@@ -6,17 +6,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "symbol",
-    "companyName",
-    "exchange",
-    "description",
-    "CEO",
-    "sector",
-    "financials",
-    "dividends"
-})
+@JsonPropertyOrder({ "symbol", "companyName", "exchange", "description", "CEO", "sector", "financials", "dividends" })
 
+@SuppressWarnings("unused")
 public class Company {
 
   @JsonProperty("symbol")
@@ -115,4 +107,5 @@ public class Company {
   public void setDividends(List<Dividend> dividends) {
     this.dividends = dividends;
   }
+
 }

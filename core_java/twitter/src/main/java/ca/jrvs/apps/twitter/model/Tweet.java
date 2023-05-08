@@ -6,7 +6,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonInclude(Include.NON_NULL)
-@JsonPropertyOrder({"created_at", "id", "id_str", "text", "entities", "coordinates", "retweet_count", "favorite_count", "favorited", "retweeted"})
+@JsonPropertyOrder({"created_at", "id", "id_str", "text", "entities", "coordinates", "retweet_count", "favorite_count", "favorite", "retweeted"})
+@SuppressWarnings("unused")
 public class Tweet {
     @JsonProperty("created_at")
     private String createdAt;
@@ -24,8 +25,8 @@ public class Tweet {
     private Long retweetCount;
     @JsonProperty("favorite_count")
     private Long favoriteCount;
-    @JsonProperty("favorited")
-    private Boolean favorited;
+    @JsonProperty("favorite")
+    private Boolean favorite;
     @JsonProperty("retweeted")
     private Boolean retweeted;
 
@@ -112,14 +113,14 @@ public class Tweet {
         this.favoriteCount = favoriteCount;
     }
 
-    @JsonProperty("favorited")
-    public Boolean getFavorited() {
-        return this.favorited;
+    @JsonProperty("favorite")
+    public Boolean getFavorite() {
+        return this.favorite;
     }
 
-    @JsonProperty("favorited")
-    public void setFavorited(Boolean favorited) {
-        this.favorited = favorited;
+    @JsonProperty("favorite")
+    public void setFavorite(Boolean favorite) {
+        this.favorite = favorite;
     }
 
     @JsonProperty("retweeted")

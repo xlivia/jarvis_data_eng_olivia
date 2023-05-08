@@ -2,6 +2,7 @@ package ca.jrvs.apps.twitter.example.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+@SuppressWarnings("unused")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Dividend {
 
@@ -50,4 +51,5 @@ public class Dividend {
   public void setAmount(Double amount) {
     this.amount = amount;
   }
+
 }

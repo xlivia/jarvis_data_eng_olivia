@@ -28,9 +28,21 @@ public class JsonUtil {
         return m.writeValueAsString(object);
     }
 
-    public static <T> T toObjectFromJson(String json, Class c) throws IOException {
+    @SuppressWarnings("commented-out-code")
+    /*public static <T> T toObjectFromJson(String json, Class<ca.jrvs.apps.twitter.model.Tweet> c) throws IOException {
         ObjectMapper m = new ObjectMapper();
         m.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         return (T)m.readValue(json, c);
     }
+    public static <T> T toObjectFromJson(String json, Class c) throws IOException {
+        ObjectMapper m = new ObjectMapper();
+        m.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        return (T)m.readValue(json, c);
+    }*/
+    public static <T> T toObjectFromJson(String json, Class<T> c) throws IOException {
+        ObjectMapper m = new ObjectMapper();
+        m.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        return m.readValue(json, c);
+    }
+
 }

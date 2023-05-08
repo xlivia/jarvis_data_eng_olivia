@@ -10,15 +10,17 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Component;
 
+@SuppressWarnings("unused")
 @Component
 public class TwitterHttpHelper implements HttpHelper {
-    private OAuthConsumer consumer;
-    private HttpClient httpClient;
+
+    private final OAuthConsumer consumer;
+    private final HttpClient httpClient;
 
     public TwitterHttpHelper(String consumerKey, String consumerSecret, String accessToken, String tokenSecret) {
         this.consumer = new CommonsHttpOAuthConsumer(consumerKey, consumerSecret);
@@ -27,18 +29,19 @@ public class TwitterHttpHelper implements HttpHelper {
     }
 
     public TwitterHttpHelper() {
-        String consumerKey = System.getenv("consumerKey");
-        String consumerSecret = System.getenv("consumerSecret");
-        String accessToken = System.getenv("accessToken");
-        String tokenSecret = System.getenv("tokenSecret");
+        String consumerKey = System.getenv("consumer.key");
+        String consumerSecret = System.getenv("consumer.secret");
+        String accessToken = System.getenv("access.token");
+        String tokenSecret = System.getenv("access.token.secret");
         this.consumer = new CommonsHttpOAuthConsumer(consumerKey, consumerSecret);
         this.consumer.setTokenWithSecret(accessToken, tokenSecret);
-        this.httpClient = new DefaultHttpClient();
+        //this.httpClient = new DefaultHttpClient();
+        this.httpClient = HttpClients.createDefault();
     }
 
     public HttpResponse httpPost(URI uri) {
         try {
-            return this.executeHttpRequest(HttpMethod.POST, uri, (StringEntity)null);
+            return this.executeHttpRequest(HttpMethod.POST, uri, null);
         } catch (IOException | OAuthException var3) {
             throw new RuntimeException("Failed to execute", var3);
         }
@@ -72,17 +75,17 @@ public class TwitterHttpHelper implements HttpHelper {
 
     public HttpResponse httpGet(URI uri) {
         try {
-            return this.executeHttpRequest(HttpMethod.GET, uri, (StringEntity)null);
+            return this.executeHttpRequest(HttpMethod.GET, uri, null);
         } catch (IOException | OAuthException var3) {
             throw new RuntimeException("Failed to execute", var3);
         }
     }
 
     public static void main(String[] args) throws Exception {
-        String consumerKey = System.getenv("consumerKey");
-        String consumerSecret = System.getenv("consumerSecret");
-        String accessToken = System.getenv("accessToken");
-        String tokenSecret = System.getenv("tokenSecret");
+        String consumerKey = System.getenv("consumer.key");
+        String consumerSecret = System.getenv("consumer.secret");
+        String accessToken = System.getenv("access.token");
+        String tokenSecret = System.getenv("token.secret");
         System.out.println(consumerKey + "|" + consumerSecret + "|" + accessToken + "|" + tokenSecret);
         HttpHelper httpHelper = new TwitterHttpHelper(consumerKey, consumerSecret, accessToken, tokenSecret);
         HttpResponse response = httpHelper.httpPost(new URI("https://api.twitter.com//1.1/statuses/update.json?status=first_tweet2"));

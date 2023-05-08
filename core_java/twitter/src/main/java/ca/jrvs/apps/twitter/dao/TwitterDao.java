@@ -16,15 +16,23 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class TwitterDao implements CrdDao<Tweet, String> {
+    @SuppressWarnings("unused")
     private static final String API_BASE_URI = "https://api.twitter.com";
+    @SuppressWarnings("unused")
     private static final String POST_PATH = "/1.1/statuses/update.json";
+    @SuppressWarnings("unused")
     private static final String SHOW_PATH = "/1.1/statuses/show.json";
+    @SuppressWarnings("unused")
     private static final String DELETE_PATH = "/1.1/statuses/destroy";
+    @SuppressWarnings("unused")
     private static final String QUERY_SYM = "?";
+    @SuppressWarnings("unused")
     private static final String AMPERSAND = "&";
+    @SuppressWarnings("unused")
     private static final String EQUAL = "=";
+    @SuppressWarnings("unused")
     private static final int HTTP_OK = 200;
-    private HttpHelper httpHelper;
+    private final HttpHelper httpHelper;
 
     @Autowired
     public TwitterDao(HttpHelper httpHelper) {
@@ -40,13 +48,13 @@ public class TwitterDao implements CrdDao<Tweet, String> {
         }
 
         HttpResponse response = this.httpHelper.httpPost(uri);
-        return this.parseResponseBody(response, 200);
+        return this.parseResponseBody(response);
     }
 
-    protected Tweet parseResponseBody(HttpResponse response, Integer expectedStatusCode) {
-        Tweet tweet = null;
+    protected Tweet parseResponseBody(HttpResponse response) {
+        Tweet tweet;
         int status = response.getStatusLine().getStatusCode();
-        if (status != expectedStatusCode) {
+        if (status != 200) {
             try {
                 System.out.println(EntityUtils.toString(response.getEntity()));
             } catch (IOException var7) {
@@ -65,7 +73,7 @@ public class TwitterDao implements CrdDao<Tweet, String> {
             }
 
             try {
-                tweet = (Tweet)JsonUtil.toObjectFromJson(jsonStr, Tweet.class);
+                tweet = JsonUtil.toObjectFromJson(jsonStr, Tweet.class);
                 return tweet;
             } catch (IOException var8) {
                 throw new RuntimeException("Unable to convert JSON str to Object", var8);
@@ -82,7 +90,7 @@ public class TwitterDao implements CrdDao<Tweet, String> {
         }
 
         HttpResponse response = this.httpHelper.httpGet(uri);
-        return this.parseResponseBody(response, 200);
+        return this.parseResponseBody(response);
     }
 
     public Tweet deleteById(String id) {
@@ -94,13 +102,11 @@ public class TwitterDao implements CrdDao<Tweet, String> {
         }
 
         HttpResponse response = this.httpHelper.httpPost(uri);
-        return this.parseResponseBody(response, 200);
+        return this.parseResponseBody(response);
     }
 
     private URI getDeleteUri(String id) throws URISyntaxException {
-        StringBuilder sb = new StringBuilder();
-        sb.append("https://api.twitter.com").append("/1.1/statuses/destroy").append("/").append(id).append(".json");
-        return new URI(sb.toString());
+        return new URI("https://api.twitter.com" + "/1.1/statuses/destroy" + "/" + id + ".json");
     }
 
     private URI getShowUri(String id) throws URISyntaxException {
@@ -112,11 +118,11 @@ public class TwitterDao implements CrdDao<Tweet, String> {
 
     private URI getPostUri(Tweet tweet) throws URISyntaxException, UnsupportedEncodingException {
         String text = tweet.getText();
-        Double longitude = (Double)tweet.getCoordinates().getCoordinates().get(0);
-        Double latitude = (Double)tweet.getCoordinates().getCoordinates().get(1);
+        Double longitude = tweet.getCoordinates().getCoordinates().get(0);
+        Double latitude = tweet.getCoordinates().getCoordinates().get(1);
         StringBuilder sb = new StringBuilder();
         sb.append("https://api.twitter.com").append("/1.1/statuses/update.json").append("?");
-        this.appendQueryParam(sb, "status", URLEncoder.encode(text, StandardCharsets.UTF_8.name()), true);
+        this.appendQueryParam(sb, "status", URLEncoder.encode(text, StandardCharsets.UTF_8), true);
         this.appendQueryParam(sb, "long", longitude.toString(), false);
         this.appendQueryParam(sb, "lat", latitude.toString(), false);
         return new URI(sb.toString());

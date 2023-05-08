@@ -19,15 +19,16 @@ import java.io.IOException;
 import java.util.Properties;
 
 @Component
-public class App {
+@SuppressWarnings("unused")
+public class TwitterCLIAppTest {
 
     private static final String CONFIG_FILE = "config.properties";
     private static final Properties props = new Properties();
     public static final String USAGE = "USAGE: TwitterCLIApp post|show|delete [options]";
-    private Controller controller;
+    private final Controller controller;
 
     @Autowired
-    public App(Controller controller) {
+    public TwitterCLIAppTest(Controller controller) {
         this.controller = controller;
     }
 
@@ -75,16 +76,12 @@ public class App {
                 props.getProperty("access.token"),
                 props.getProperty("access.token.secret"));
 
-        CrdDao dao = new TwitterDao(httpHelper);
+        CrdDao<Tweet, String> dao = new TwitterDao(httpHelper);
         Service service = new TwitterService(dao);
         Controller controller = new TwitterController(service);
-        App app = new App(controller);
+        TwitterCLIApp app = new TwitterCLIApp(controller);
         app.run(args);
-
-        /**CrdDao<Tweet, String> dao = new TwitterDao(httpHelper);
-        Service service = new TwitterService(dao);
-        Controller controller = new TwitterController(service);
-        controller.postTweet(args);*/
+        controller.postTweet(args);
 
     }
 

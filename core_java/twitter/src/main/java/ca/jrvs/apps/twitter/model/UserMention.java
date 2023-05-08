@@ -8,6 +8,7 @@ import java.util.List;
 
 @JsonInclude(Include.NON_NULL)
 @JsonPropertyOrder({"name", "indices", "screen_name", "id", "id_str"})
+@SuppressWarnings("unused")
 public class UserMention {
     @JsonProperty("name")
     private String name;

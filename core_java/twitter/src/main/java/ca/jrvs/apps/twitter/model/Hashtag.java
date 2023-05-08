@@ -8,6 +8,7 @@ import java.util.List;
 
 @JsonInclude(Include.NON_NULL)
 @JsonPropertyOrder({"text", "indices"})
+@SuppressWarnings("unused")
 public class Hashtag {
     @JsonProperty("text")
     private String text;

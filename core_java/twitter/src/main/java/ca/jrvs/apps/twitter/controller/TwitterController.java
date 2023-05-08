@@ -10,9 +10,8 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 public class TwitterController implements ca.jrvs.apps.twitter.controller.Controller {
-    private static final String COORD_SEP = ":";
-    private static final String COMMA = ",";
-    private Service service;
+
+    private final Service service;
 
     @Autowired
     public TwitterController(Service service) {
@@ -24,15 +23,14 @@ public class TwitterController implements ca.jrvs.apps.twitter.controller.Contro
             throw new IllegalArgumentException("USAGE: TwitterCLIApp post \"tweet_text\" \"latitude:longitude\"");
         } else {
             String tweet_txt = args[1];
-            String coord = args[2];
-            String[] coordArray = coord.split(":");
-            if (coordArray.length == 2 && !StringUtil.isEmpty(tweet_txt)) {
-                Double lat = null;
-                Double lon = null;
+            String cord = args[2];
+            String[] cordArray = cord.split(":");
+            if (cordArray.length == 2 && !StringUtil.isEmpty(tweet_txt)) {
+                double lat, lon;
 
                 try {
-                    lat = Double.parseDouble(coordArray[0]);
-                    lon = Double.parseDouble(coordArray[1]);
+                    lat = Double.parseDouble(cordArray[0]);
+                    lon = Double.parseDouble(cordArray[1]);
                 } catch (Exception var8) {
                     throw new IllegalArgumentException("Invalid location format\nUSAGE: TwitterCLIApp post \"tweet_text\" \"latitude:longitude\"", var8);
                 }

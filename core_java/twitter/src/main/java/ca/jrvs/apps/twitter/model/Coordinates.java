@@ -9,6 +9,7 @@ import java.util.List;
 @JsonInclude(Include.NON_NULL)
 @JsonPropertyOrder({"coordinates", "type"})
 
+@SuppressWarnings("unused")
 public class Coordinates {
 
     @JsonProperty("coordinates")

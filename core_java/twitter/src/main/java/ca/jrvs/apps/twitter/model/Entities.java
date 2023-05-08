@@ -8,6 +8,7 @@ import java.util.List;
 
 @JsonInclude(Include.NON_NULL)
 @JsonPropertyOrder({"hashtags", "user_mentions"})
+@SuppressWarnings("unused")
 public class Entities {
     @JsonProperty("hashtags")
     private List<Hashtag> hashtags = null;

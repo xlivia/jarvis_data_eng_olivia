@@ -2,6 +2,7 @@ package ca.jrvs.apps.twitter.util;
 
 import java.util.Arrays;
 
+@SuppressWarnings("unused")
 public class StringUtil {
     public StringUtil() {
     }
@@ -11,9 +12,7 @@ public class StringUtil {
     }
 
     public static boolean isEmpty(String... s) {
-        return Arrays.stream(s).anyMatch((str) -> {
-            return str == null || str.isEmpty();
-        });
+        return Arrays.stream(s).anyMatch((str) -> str == null || str.isEmpty());
     }
 
     public static String capitalize(final String str) {

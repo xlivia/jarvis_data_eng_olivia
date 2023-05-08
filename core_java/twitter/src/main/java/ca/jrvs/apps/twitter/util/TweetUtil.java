@@ -11,19 +11,15 @@ public class TweetUtil {
     private static final Double MAX_LON = 180.0;
     private static final Double MIN_LON = -180.0;
     private static final Integer MAX_TWEET_CHAR = 140;
-    public static Predicate<String> validId = (id) -> {
-        return !StringUtil.isEmpty(id) && id.chars().noneMatch((c) -> {
-            return c < 48 || c > 57;
-        });
-    };
+    public static Predicate<String> validId = (id) -> !StringUtil.isEmpty(id) && id.chars().noneMatch((c) -> c < 48 || c > 57);
 
     public TweetUtil() {
     }
 
     public static void validatePostTweet(Tweet tweet) {
         String text = tweet.getText();
-        Double longitude = (Double)tweet.getCoordinates().getCoordinates().get(0);
-        Double latitude = (Double)tweet.getCoordinates().getCoordinates().get(1);
+        Double longitude = tweet.getCoordinates().getCoordinates().get(0);
+        Double latitude = tweet.getCoordinates().getCoordinates().get(1);
         validatePostTweet(text, longitude, latitude);
     }
 
