@@ -1,29 +1,36 @@
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Scanner;
 
 class MissNum {
 
-    public long missNumSum(long[] nums) {
-        // Approach 1: Sum all numbers
-        long n = nums.length;
-        long expectedSum = n * (n + 1) / 2;
-        long actualSum = 0;
-        for (long num : nums) {
+    /**
+     * Approach: Sum all numbers
+     * Time Complexity: O(n)
+     * Justification: The algorithm iterates over the nums array once.
+     */
+    public int missingNumberSum(int[] nums) {
+        int n = nums.length;
+        int expectedSum = n * (n + 1) / 2;
+        int actualSum = 0;
+        for (int num : nums) {
             actualSum += num;
         }
         return expectedSum - actualSum;
     }
 
-    public long missNumSet(long[] nums) {
-        // Approach 2: Using Set
-        Set<Long> numSet = new HashSet<>();
-        for (long num : nums) {
+    /**
+     * Approach: Using Set
+     * Time Complexity: O(n)
+     * Justification: The algorithm iterates over the nums array once to build the set.
+     *                The contains operation in the set takes O(1) on average.
+     */
+    public int missingNumberSet(int[] nums) {
+        Set<Integer> numSet = new HashSet<>();
+        for (int num : nums) {
             numSet.add(num);
         }
-        long n = nums.length;
-        for (long i = 0; i <= n; i++) {
+        int n = nums.length;
+        for (int i = 0; i <= n; i++) {
             if (!numSet.contains(i)) {
                 return i;
             }
@@ -31,12 +38,18 @@ class MissNum {
         return -1;
     }
 
-    public long missNumGauss(long[] nums) {
-        // Approach 3: Gauss Formula
-        long n = nums.length;
-        long expectedSum = n * (n + 1) / 2;
-        long actualSum = 0;
-        for (long num : nums) {
+    /**
+     * Problem: Missing Number
+     * 
+     * Approach: Gauss Formula
+     * Time Complexity: O(n)
+     * Justification: The algorithm iterates over the nums array once to calculate the actual sum.
+     */
+    public int missingNumberGauss(int[] nums) {
+        int n = nums.length;
+        int expectedSum = n * (n + 1) / 2;
+        int actualSum = 0;
+        for (int num : nums) {
             actualSum += num;
         }
         return expectedSum - actualSum;
@@ -44,17 +57,19 @@ class MissNum {
 
     public static void main(String[] args) {
         MissNum missNum = new MissNum();
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter the number of elements in the array: ");
-        int n = scanner.nextInt();
-        long[] nums = new long[n];
-        System.out.println("Enter the array elements:");
-        for (int i = 0; i < n; i++) {
-            nums[i] = scanner.nextLong();
-        }
-        System.out.println("(Sum) Missing number: " + missNum.missNumSum(nums));
-        System.out.println("(Set) Missing number: " + missNum.missNumSet(nums));
-        System.out.println("(Gauss) Missing number: " + missNum.missNumGauss(nums));
+        int[] nums = {3, 0, 1};
+
+        // Approach: Sum all numbers
+        int missingNumberSum = missNum.missingNumberSum(nums);
+        System.out.println("(Sum) Missing number: " + missingNumberSum);
+
+        // Approach: Using Set
+        int missingNumberSet = missNum.missingNumberSet(nums);
+        System.out.println("(Set) Missing number: " + missingNumberSet);
+
+        // Approach: Gauss Formula
+        int missingNumberGauss = missNum.missingNumberGauss(nums);
+        System.out.println("(Gauss) Missing number: " + missingNumberGauss);
     }
 
 }
