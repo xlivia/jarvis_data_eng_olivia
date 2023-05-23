@@ -5,7 +5,7 @@ import java.util.Set;
 class MissNum {
 
     /**
-     * Approach: Sum all numbers
+     * Approach 1: Sum all numbers
      * Time Complexity: O(n)
      * Justification: The algorithm iterates over the nums array once.
      */
@@ -20,7 +20,7 @@ class MissNum {
     }
 
     /**
-     * Approach: Using Set
+     * Approach 2: Using Set
      * Time Complexity: O(n)
      * Justification: The algorithm iterates over the nums array once to build the set.
      *                The contains operation in the set takes O(1) on average.
@@ -40,7 +40,7 @@ class MissNum {
     }
 
     /**
-     * Approach: Gauss Formula
+     * Approach 3: Gauss Formula
      * Time Complexity: O(n)
      * Justification: The algorithm iterates over the nums array once to calculate the actual sum.
      */
@@ -57,12 +57,34 @@ class MissNum {
     public static void main(String[] args) {
         MissNum missNum = new MissNum();
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter the number of elements in the array: ");
-        int n = scanner.nextInt();
+        int n = 0;
+        boolean validLength = false;
+        while (!validLength) {
+            System.out.print("Enter the number of elements in the array (up to 20): ");
+            try {
+                n = Integer.parseInt(scanner.nextLine());
+                if (n >= 1 && n <= 20) {
+                    validLength = true;
+                } else {
+                    System.out.println("Invalid array length. Please enter a number between 1 and 20.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid number.");
+            }
+        }
         long[] nums = new long[n];
-        System.out.println("Enter the array elements:");
         for (int i = 0; i < n; i++) {
-            nums[i] = scanner.nextLong();
+            boolean validNumber = false;
+            while (!validNumber) {
+                System.out.print("Enter element " + (i + 1) + ": ");
+                try {
+                    long num = Long.parseLong(scanner.nextLine());
+                    nums[i] = num;
+                    validNumber = true;
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid number. Please enter a valid number.");
+                }
+            }
         }
         // Approach 1: Sum all numbers
         long missingNumberSum = missNum.missingNumberSum(nums);
