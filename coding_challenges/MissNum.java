@@ -30,9 +30,12 @@ class MissNum {
         for (long num : nums) {
             numSet.add(num);
         }
-        long n = nums.length;
-        for (long i = 0; i <= n; i++) {
-            if (!numSet.contains(i)) {
+        int n = nums.length;
+        // Change the variable type to int
+        for (int i = 0; i < n; i++) {
+            // Change the loop variable type to int
+            if (!numSet.contains((long) i)) {
+                // Cast i to long in the contains check
                 return i;
             }
         }
