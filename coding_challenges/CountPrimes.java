@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Scanner;
 
 class CountPrimes {
 
@@ -27,10 +28,27 @@ class CountPrimes {
     }
 
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int n = 0;
+        boolean validInput = false;
+        while (!validInput) {
+            System.out.print("Enter a number (greater than 2): ");
+            if (scanner.hasNextInt()) {
+                n = scanner.nextInt();
+                if (n > 2) {
+                    validInput = true;
+                } else {
+                    System.out.println("Invalid input! Please enter a number greater than 2.");
+                }
+            } else {
+                System.out.println("Invalid input! Please enter a valid number.");
+                scanner.nextLine();
+            }
+        }
         CountPrimes solution = new CountPrimes();
-        int n = 10;
         int count = solution.countPrimes(n);
         System.out.println("Count of prime numbers less than " + n + ": " + count);
+        scanner.close();
     }
 
 }
