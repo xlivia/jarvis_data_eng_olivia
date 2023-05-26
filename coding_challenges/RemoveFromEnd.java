@@ -1,4 +1,5 @@
 class RemoveFromEnd {
+
     static class ListNode {
         int val;
         ListNode next;
@@ -11,6 +12,7 @@ class RemoveFromEnd {
             this.next = next;
         }
     }
+
     public ListNode removeNthFromEnd(ListNode head, int n) {
         ListNode dummy = new ListNode(0); // Create a dummy node
         dummy.next = head;
@@ -29,6 +31,7 @@ class RemoveFromEnd {
         slow.next = slow.next.next;
         return dummy.next;
     }
+
     public static void main(String[] args) {
         // Create a sample linked list: 1 -> 2 -> 3 -> 4 -> 5
         ListNode node5 = new ListNode(5);
@@ -47,4 +50,5 @@ class RemoveFromEnd {
         }
         System.out.println("null");
     }
+
 }

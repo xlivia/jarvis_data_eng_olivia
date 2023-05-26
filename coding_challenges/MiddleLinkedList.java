@@ -1,4 +1,5 @@
 class MiddleLinkedList {
+
     public class ListNode {
         int val;
         ListNode next;
@@ -11,6 +12,7 @@ class MiddleLinkedList {
             this.next = next;
         }
     }
+
     public ListNode middleNode(ListNode head) {
         ListNode slow = head;
         ListNode fast = head;
@@ -20,9 +22,8 @@ class MiddleLinkedList {
         }
         return slow;
     }
-    public static void main
-(String[] args) {
-    
+
+    public static void main (String[] args) {
         MiddleLinkedList solution = new MiddleLinkedList();
         // Create a sample linked list: 1 -> 2 -> 3 -> 4 -> 5
         ListNode node5 = solution.new ListNode(5);
@@ -39,4 +40,5 @@ class MiddleLinkedList {
         }
         System.out.println("null");
     }
+
 }
